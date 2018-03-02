@@ -13,6 +13,7 @@ import com.twitter.hbc.core.HttpHosts;
 import com.twitter.hbc.core.endpoint.StatusesFilterEndpoint;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.auth.Authentication;
+import com.twitter.hbc.httpclient.auth.BasicAuth;
 import com.twitter.hbc.httpclient.auth.OAuth1;
 
 /**
@@ -30,6 +31,7 @@ public class TwitterStreamConn
         BlockingQueue<Event> eventQueue = new LinkedBlockingQueue<Event>(1000);
 
         /** Declare the host you want to connect to, the endpoint, and authentication (basic auth or oauth) */
+        //STREAM_HOSTS : https://stream.twitter.com
         Hosts hosebirdHosts = new HttpHosts(Constants.STREAM_HOST);
         StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
         // Optional: set up some followings and track terms
@@ -39,8 +41,8 @@ public class TwitterStreamConn
         hosebirdEndpoint.trackTerms(terms);
 
         // These secrets should be read from a config file
-        Authentication hosebirdAuth = new OAuth1("G6gJYlHP3qxvT6lQT1UtzfAsm", "	vr5FSQUdXOJHb2npjJE9xyxN4m0qMkIbmhiZGVdZK5wIeM8Obp", "3834719313-W1e7tddRJ35TgFaLlD8BueaczKNprK7U0QRCTna", "dbbUi2bFdXsniK9nQkEjciqU4cC4FH6ewZnyLEZaWRCvR");
-        
+        Authentication hosebirdAuth = new OAuth1("G6gJYlHP3qxvT6lQT1UtzfAsm", "vr5FSQUdXOJHb2npjJE9xyxN4m0qMkIbmhiZGVdZK5wIeM8Obp", "3834719313-W1e7tddRJ35TgFaLlD8BueaczKNprK7U0QRCTna", "dbbUi2bFdXsniK9nQkEjciqU4cC4FH6ewZnyLEZaWRCvR");
+     
         ClientBuilder builder = new ClientBuilder()
 		  		  .name("Hosebird-Client-01")                              // optional: mainly for the logs
 		  		  .hosts(hosebirdHosts)
