@@ -39,23 +39,25 @@ public class TwitterStreamConn
         hosebirdEndpoint.trackTerms(terms);
 
         // These secrets should be read from a config file
-        Authentication hosebirdAuth = new OAuth1("G6gJYlHP3qxvT6lQT1UtzfAsm", "	vr5FSQUdXOJHb2npjJE9xyxN4m0qMkIbmhiZGVdZK5wIeM8Obp", "", "");
+        Authentication hosebirdAuth = new OAuth1("G6gJYlHP3qxvT6lQT1UtzfAsm", "	vr5FSQUdXOJHb2npjJE9xyxN4m0qMkIbmhiZGVdZK5wIeM8Obp", "3834719313-W1e7tddRJ35TgFaLlD8BueaczKNprK7U0QRCTna", "dbbUi2bFdXsniK9nQkEjciqU4cC4FH6ewZnyLEZaWRCvR");
         
         ClientBuilder builder = new ClientBuilder()
-        		  .name("Hosebird-Client-01")                              // optional: mainly for the logs
-        		  .hosts(hosebirdHosts)
-        		  .authentication(hosebirdAuth)
-        		  .endpoint(hosebirdEndpoint)
-        		  .processor(new StringDelimitedProcessor(msgQueue));                         
+		  		  .name("Hosebird-Client-01")                              // optional: mainly for the logs
+		  		  .hosts(hosebirdHosts)
+		  		  .authentication(hosebirdAuth)
+		  		  .endpoint(hosebirdEndpoint)
+		  		  .processor(new StringDelimitedProcessor(msgQueue));    
+	
+	                     
 
-        		Client hosebirdClient = builder.build();
-        		// Attempts to establish a connection.
-        		hosebirdClient.connect();
-        		
-        		while (!hosebirdClient.isDone()) {
-        			  String msg = msgQueue.take();
-        			  System.out.println(msg);
-        			  
-        			}
+		Client hosebirdClient = builder.build();
+		// Attempts to establish a connection.
+		hosebirdClient.connect();
+		
+		while (!hosebirdClient.isDone()) {
+			  String msg = msgQueue.take();
+			  System.out.println(msg);
+			  
+			}
     }
 }
