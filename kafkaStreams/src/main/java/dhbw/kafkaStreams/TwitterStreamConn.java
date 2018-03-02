@@ -19,7 +19,7 @@ import com.twitter.hbc.httpclient.auth.OAuth1;
  * Hello world!
  *
  */
-public class App 
+public class TwitterStreamConn 
 {
     public static void main( String[] args ) throws InterruptedException
     {
