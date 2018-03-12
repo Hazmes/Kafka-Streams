@@ -36,6 +36,8 @@ public class Config {
 			Class<TwitterClient> twitterClientClass = (Class<TwitterClient>) Class.forName(twitterClientWrapper.getName());
 			this.twitterClient = (TwitterClient) twitterClientClass.newInstance();
 			this.twitterClient.setParameters(twitterClientWrapper.getParameters());
+			this.twitterClient.setFollowings(twitterClientWrapper.getFollowings());
+			this.twitterClient.setTerms(twitterClientWrapper.getTerms());
 		}catch(Exception e){
 			throw e;
 		}
