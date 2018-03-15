@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import org.apache.log4j.Logger;
-
-import com.google.common.collect.Lists;
 import com.twitter.hbc.ClientBuilder;
 import com.twitter.hbc.core.HttpHosts;
 import com.twitter.hbc.core.endpoint.StatusesFilterEndpoint;
@@ -24,8 +22,8 @@ public class TwitterClient {
 	private static final String TOKEN_SEC = "client.token.secret";
 	private static final String STREAM_HOST = "client.http.hosts";
 	private List<Long> followings = new ArrayList<Long>();
-	private String clientName;
 	private List<String> terms = new ArrayList<String>();
+	private String clientName;
 	private String consumerKey;
 	private String consumerSecret;
 	private String token;
@@ -36,8 +34,17 @@ public class TwitterClient {
 		StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
 		//a phrase will match if all of the terms in the phrase are present in the Tweet
         //Terms or Followings have to be set. If nothing is set, the connection gets rejected (406)
-		hosebirdEndpoint.followings(Lists.newArrayList(3834719313L));
-	//	hosebirdEndpoint.trackTerms(terms);
+		if(followings.isEmpty()) {
+			hosebirdEndpoint.trackTerms(terms);	
+			log.warn("followings empty");
+		}else if(terms.isEmpty()) {
+			hosebirdEndpoint.followings(followings);
+			log.warn("terms empty");
+		}else {
+			hosebirdEndpoint.followings(followings);
+			hosebirdEndpoint.trackTerms(terms);
+		}
+		
 		ClientBuilder builder = new ClientBuilder()
 				.name(this.getClientName())                              // optional: mainly for the logs
 				.hosts(new HttpHosts(this.getStreamHost()))
@@ -64,7 +71,7 @@ public class TwitterClient {
 			}else if(STREAM_HOST.equals(parameter.getKey())){
 				this.setStreamHost(parameter.getValue());
 			}else{
-				System.out.println("Error when loading parameters to TwitterClient");
+				log.error("Error when loading " + parameter.getKey() + " Parameter into TwitterClient");
 			}
 		}
 	}

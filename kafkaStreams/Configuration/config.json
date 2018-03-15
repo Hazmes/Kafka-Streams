@@ -11,11 +11,12 @@
 			{"key": "client.http.hosts", "value": "https://stream.twitter.com"}
 		],
 		"followings": [
-			3834719313
+			
 		],
 		"terms": [
 			"api",
 			"twitter"
 		]
 	}
+	
 }

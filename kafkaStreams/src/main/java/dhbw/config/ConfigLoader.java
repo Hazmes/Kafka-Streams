@@ -1,5 +1,4 @@
 package dhbw.config;
-//Abstact Message !
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

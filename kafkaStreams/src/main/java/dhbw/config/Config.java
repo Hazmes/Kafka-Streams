@@ -1,12 +1,9 @@
 package dhbw.config;
-//GenConsConfig
 
 import org.apache.log4j.Logger;
 
 import dhbw.twitterConn.TwitterClient;
 import dhbw.twitterConn.TwitterClientWrapper;
-
-
 
 public class Config {
 	private static Config instance = null;
