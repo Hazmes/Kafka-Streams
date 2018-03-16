@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 
 import dhbw.config.Parameter;
 
-public class KafkaProducer {
-	private static Logger log = Logger.getLogger(KafkaProducer.class.getPackage().getName());
+public class Producer {
+	private static Logger log = Logger.getLogger(Producer.class.getPackage().getName());
 	private static final String BOOTSTRAP_SERVERS = "bootstrap.server";
 	private static final String KEY_SERIALIZER = "key.serializer";
 	private static final String VALUE_SERIALIZER = "value.serializer";
@@ -18,12 +18,13 @@ public class KafkaProducer {
 	private KafkaProducer<String,String> producer;
 	Properties props;
 	
-	public KafkaProducer() {
+	public Producer() {
 		props = new Properties();
 	}
 	
-	public void putMessage() {
-		
+	public void putMessage(String key, String message) {
+		producer.send(new ProducerRecord<String,String>(props.getProperty(TOPIC),key,message));
+		log.debug("Twitter Message Object "+ key + "send to Kafka");
 	}
 	
 	public void setParameters(List<Parameter> params) {
@@ -45,6 +46,10 @@ public class KafkaProducer {
 				log.error("Could not load Config Properties into " + this.getClass().getName() + "\n Failed Property: " + param.getKey());
 			}
 		}
+	}
+	
+	public void init() {
+		producer = new KafkaProducer<String,String>(props);
 	}
 	
 	public void close() throws Exception {
