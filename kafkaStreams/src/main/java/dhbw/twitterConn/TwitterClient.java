@@ -32,49 +32,57 @@ public class TwitterClient {
 
 	public BasicClient build(BlockingQueue<String> msgQueue) {
 		StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
-		//a phrase will match if all of the terms in the phrase are present in the Tweet
-        //Terms or Followings have to be set. If nothing is set, the connection gets rejected (406)
-		if(followings.isEmpty()) {
-			hosebirdEndpoint.trackTerms(terms);	
+		// a phrase will match if all of the terms in the phrase are present in the Tweet
+		// Terms or Followings have to be set. If nothing is set, the connection gets
+		// rejected (406)
+		if (followings.isEmpty()) {
+			hosebirdEndpoint.trackTerms(terms);
 			log.warn("followings empty");
-		}else if(terms.isEmpty()) {
+		} else if (terms.isEmpty()) {
 			hosebirdEndpoint.followings(followings);
 			log.warn("terms empty");
-		}else {
+		} else {
 			hosebirdEndpoint.followings(followings);
 			hosebirdEndpoint.trackTerms(terms);
 		}
-		
-		ClientBuilder builder = new ClientBuilder()
-				.name(this.getClientName())                              // optional: mainly for the logs
+
+		ClientBuilder builder = new ClientBuilder().name(this.getClientName()) // optional: mainly for the logs
 				.hosts(new HttpHosts(this.getStreamHost()))
-				.authentication(new OAuth1(this.getConsumerKey(),this.getConsumerSecret(),this.getToken(),this.getTokenSecret()))
-				.endpoint(hosebirdEndpoint)
-				.processor(new StringDelimitedProcessor(msgQueue));    
-		
+				.authentication(new OAuth1(this.getConsumerKey(), this.getConsumerSecret(), this.getToken(),
+						this.getTokenSecret()))
+				.endpoint(hosebirdEndpoint).processor(new StringDelimitedProcessor(msgQueue));
+
 		return builder.build();
-			
+
 	}
-	
+
 	public void setParameters(List<Parameter> parameters) {
 		for (Parameter parameter : parameters) {
-			if (NAME.equals(parameter.getKey())) {
+			switch (parameter.getKey()) {
+			case NAME:
 				this.setClientName(parameter.getValue());
-			}else if (CONSUMER_KEY.equals(parameter.getKey())) {
+				break;
+			case CONSUMER_KEY:
 				this.setConsumerKey(parameter.getValue());
-			}else if(CONSUMER_SEC.equals(parameter.getKey())) {
+				break;
+			case CONSUMER_SEC:
 				this.setConsumerSecret(parameter.getValue());
-			}else if(TOKEN.equals(parameter.getKey())) {
+				break;
+			case TOKEN:
 				this.setToken(parameter.getValue());
-			}else if(TOKEN_SEC.equals(parameter.getKey())) {
+				break;
+			case TOKEN_SEC:
 				this.setTokenSecret(parameter.getValue());
-			}else if(STREAM_HOST.equals(parameter.getKey())){
-				this.setStreamHost(parameter.getValue());
-			}else{
-				log.error("Error when loading " + parameter.getKey() + " Parameter into TwitterClient");
+				break;
+			case STREAM_HOST:
+				this.setStreamHost(parameter.getKey());
+				break;
+			default:
+				log.error("Could not load Properties Config into " + this.getClass().getName() + "\n Failed Property: " + parameter.getKey());
 			}
 		}
 	}
+
 	public List<Long> getFollowings() {
 		return followings;
 	}
@@ -90,6 +98,7 @@ public class TwitterClient {
 	public void setTerms(List<String> terms) {
 		this.terms = terms;
 	}
+
 	public String getClientName() {
 		return clientName;
 	}
@@ -97,6 +106,7 @@ public class TwitterClient {
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
+
 	public String getConsumerKey() {
 		return consumerKey;
 	}
@@ -128,7 +138,6 @@ public class TwitterClient {
 	public void setTokenSecret(String tokenSecret) {
 		this.tokenSecret = tokenSecret;
 	}
-	
 
 	public String getStreamHost() {
 		return streamHost;
