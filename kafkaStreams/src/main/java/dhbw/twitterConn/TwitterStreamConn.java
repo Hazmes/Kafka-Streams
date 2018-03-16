@@ -8,7 +8,7 @@ import com.twitter.hbc.core.Client;
 import dhbw.config.Config;
 
 
-public class TwitterStreamConn// extends Thread
+public class TwitterStreamConn extends Thread
 {
 	private static Logger log = Logger.getLogger(TwitterStreamConn.class.getPackage().getName());
 	private Client hosebirdClient;
