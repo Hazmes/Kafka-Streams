@@ -13,10 +13,11 @@ import dhbw.config.Parameter;
 
 public class Producer {
 	private static Logger log = Logger.getLogger(Producer.class.getPackage().getName());
-	private static final String BOOTSTRAP_SERVERS = "bootstrap.server";
+	private static final String BOOTSTRAP_SERVERS = "bootstrap.servers";
 	private static final String KEY_SERIALIZER = "key.serializer";
 	private static final String VALUE_SERIALIZER = "value.serializer";
 	private static final String TOPIC = "topic";
+	private String topic;
 	private KafkaProducer<String,String> producer;
 	Properties props;
 	
@@ -25,7 +26,7 @@ public class Producer {
 	}
 	
 	public void putMessage(String key, String message) {
-		producer.send(new ProducerRecord<String,String>(props.getProperty(TOPIC),key,message));
+		producer.send(new ProducerRecord<String,String>(this.getTopic(),key,message));
 		log.debug("Twitter Message Object "+ key + "send to Kafka");
 	}
 	
@@ -42,7 +43,7 @@ public class Producer {
 				props.put(VALUE_SERIALIZER, param.getValue());
 				break;
 			case TOPIC:
-				props.put(TOPIC, param.getValue());
+				this.setTopic(param.getValue());
 				break;
 			default:
 				log.error("Could not load Config Properties into " + this.getClass().getName() + "\n Failed Property: " + param.getKey());
@@ -51,11 +52,21 @@ public class Producer {
 	}
 	
 	public void init() {
+		System.out.println("Halloooo" + props.getProperty(TOPIC));
 		producer = new KafkaProducer<String,String>(props);
 	}
 	
 	public void close() throws Exception {
 		producer.close();
 	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+	
 	
 }
