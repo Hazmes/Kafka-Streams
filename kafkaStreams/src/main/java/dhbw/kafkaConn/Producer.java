@@ -52,7 +52,6 @@ public class Producer {
 	}
 	
 	public void init() {
-		System.out.println("Halloooo" + props.getProperty(TOPIC));
 		producer = new KafkaProducer<String,String>(props);
 	}
 	
