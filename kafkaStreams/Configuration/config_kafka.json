@@ -22,7 +22,7 @@
 	"producer": {
 			"name" : "dhbw.kafkaConn.Producer",
 		"parameters" : [
-			{ "key" : "bootstrap.servers", "value" : "" },
+			{ "key" : "bootstrap.servers", "value" : "141.72.191.168:9092" },
 			{ "key" : "key.serializer", "value" : "org.apache.kafka.common.serialization.StringSerializer" },
 			{ "key" : "value.serializer", "value" : "org.apache.kafka.common.serialization.StringSerializer" },
 			{ "key" : "topic", "value" : "Twitter" }
