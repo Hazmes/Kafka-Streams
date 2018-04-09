@@ -75,7 +75,7 @@ public class TwitterClient {
 				this.setTokenSecret(parameter.getValue());
 				break;
 			case STREAM_HOST:
-				this.setStreamHost(parameter.getKey());
+				this.setStreamHost(parameter.getValue());
 				break;
 			default:
 				log.error("Could not load Properties Config into " + this.getClass().getName() + "\n Failed Property: " + parameter.getKey());
