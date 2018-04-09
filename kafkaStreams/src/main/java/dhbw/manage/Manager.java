@@ -12,6 +12,7 @@ public class Manager {
 	
 	
 	public Manager(String[] args){
+		
 		Config config = ConfigLoader.importGenConsConfig((args[0]));
 		if(config == null) {
 			log.error("config could not be loaded");
@@ -22,8 +23,9 @@ public class Manager {
 	}
 	
 	public static void main(String[] args) {
+		
 		new Manager(args);
+		
 	}
-	
 
 }

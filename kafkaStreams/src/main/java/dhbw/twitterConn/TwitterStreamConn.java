@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -45,16 +44,19 @@ public class TwitterStreamConn extends Thread
 				 object.remove("retweeted_status");
 				 object.remove("extended_entities");
 				 object.remove("quoted_status");
-				 
+				
 //				Iterator<String> jsonobjects = object.fieldNames();
 //				while(jsonobjects.hasNext()) {
 //					log.info(jsonobjects.next().toString());
 //				}
 				
 				log.info("Cutted Tweet: " + object.toString());
-				System.out.println("Did Something goood.");
-				kafkaProducer.putMessage(object.get("id").toString(), object.toString());
-				
+				System.out.println("It was the best log in the world. It was the best log in the world. Look into the log and its easy to see that the code you wrote does not make sense to me. It was stupidity");
+				//System.out.println("Did Something goood.");
+				if(kafkaProducer != null) {
+					kafkaProducer.putMessage(object.get("id").toString(), object.toString());
+				}
+						
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
