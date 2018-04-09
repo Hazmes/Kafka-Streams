@@ -1,0 +1,31 @@
+{
+	"name": "ProjectConfigurations",
+	"twitterClient": {
+		"name": "dhbw.twitterConn.TwitterClient",
+		"parameters": [
+			{"key": "client.name", "value": "TwitterClient1"},
+			{"key": "client.consumer.key", "value": "G6gJYlHP3qxvT6lQT1UtzfAsm"},
+			{"key": "client.consumer.secret", "value": "vr5FSQUdXOJHb2npjJE9xyxN4m0qMkIbmhiZGVdZK5wIeM8Obp"},
+			{"key": "client.token", "value": "3834719313-W1e7tddRJ35TgFaLlD8BueaczKNprK7U0QRCTna"},
+			{"key": "client.token.secret", "value": "dbbUi2bFdXsniK9nQkEjciqU4cC4FH6ewZnyLEZaWRCvR"},
+			{"key": "client.http.hosts", "value": "https://stream.twitter.com"}
+		],
+		"followings": [
+			
+		],
+		"terms": [
+			"api",
+			"twitter"
+		]
+	},
+	
+	"producer": {
+			"name" : "dhbw.kafkaConn.Producer",
+		"parameters" : [
+			{ "key" : "bootstrap.servers", "value" : "" },
+			{ "key" : "key.serializer", "value" : "org.apache.kafka.common.serialization.StringSerializer" },
+			{ "key" : "value.serializer", "value" : "org.apache.kafka.common.serialization.StringSerializer" },
+			{ "key" : "topic", "value" : "Twitter" }
+		]	
+	}
+}
