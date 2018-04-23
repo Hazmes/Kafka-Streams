@@ -58,6 +58,7 @@ public class Config {
 	public Producer getProducer() {
 		return kafkaProducer;
 	}
+	
 	public TwitterClient getTwitterClient() {
 		return twitterClient;
 	}
