@@ -50,11 +50,12 @@ public class TwitterStreamConn extends Thread
 //					log.info(jsonobjects.next().toString());
 //				}
 				
-				log.info("Cutted Tweet: " + object.toString());
-				System.out.println("Cutted Tweet: " + object.toString());
+			//	log.debug("Cutted Tweet: " + object.toString());
+			//	System.out.println("Cutted Tweet: " + object.toString());
 				//System.out.println("It was the best log in the world. It was the best log in the world. Look into the log and its easy to see that the code you wrote does not make sense to me. It was stupidity");
 				//System.out.println("Did Something goood.");
 				if(kafkaProducer != null) {
+					log.info("kafkaProducer is not empty. Starting sending message to topic now!");
 					kafkaProducer.putMessage(object.get("id").toString(), object.toString());
 				}
 						
