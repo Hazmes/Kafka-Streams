@@ -1,5 +1,4 @@
 package dhbw.config;
-//Abstact Message !
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -19,7 +18,7 @@ public class ConfigLoader {
 	private static Logger log = Logger.getLogger(ConfigLoader.class.getPackage().getName());
 	protected Config config;
 
-	protected static Config importGenConsConfig(String fileName) {
+	public static Config importGenConsConfig(String fileName) {
 		Config config;
 		try {
 			log.info("Read config from file: " + fileName);
