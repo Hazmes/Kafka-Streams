@@ -58,10 +58,10 @@ public class TwitterStreamConn extends Thread
 					log.info("kafkaProducer is not empty. Starting sending message to topic now!");
 					String objectId = object.get("id").toString();
 					String objectString  = object.toString();
-					if(objectId == null) {
+					if(objectId == null || objectId.isEmpty()) {
 						log.info("object id is null");
 					}
-					if(objectString == null) {
+					if(objectString == null || objectString.isEmpty()) {
 						log.info("object reference is null");
 					}
 					kafkaProducer.putMessage(objectId, objectString);
