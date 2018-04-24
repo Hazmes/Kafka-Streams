@@ -56,7 +56,15 @@ public class TwitterStreamConn extends Thread
 				//System.out.println("Did Something goood.");
 				if(kafkaProducer != null) {
 					log.info("kafkaProducer is not empty. Starting sending message to topic now!");
-					kafkaProducer.putMessage(object.get("id").toString(), object.toString());
+					String objectId = object.get("id").toString();
+					String objectString  = object.toString();
+					if(objectId == null) {
+						log.info("object id is null");
+					}
+					if(objectString == null) {
+						log.info("object reference is null");
+					}
+					kafkaProducer.putMessage(objectId, objectString);
 				}
 						
 			} catch (JsonProcessingException e) {

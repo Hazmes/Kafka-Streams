@@ -52,3 +52,10 @@
 2018-04-23 13:38:31,828 [WARN ] [dhbw.twitterConn.TwitterClient.build(40)] - followings empty
 2018-04-23 13:38:33,318 [INFO ] [dhbw.twitterConn.TwitterStreamConn.run(58)] - kafkaProducer is not empty. Starting sending message to topic now!
 2018-04-23 13:38:33,321 [INFO ] [dhbw.kafkaConn.Producer.putMessage(29)] - Producer Object Method putMessage is now executed
+2018-04-24 13:27:57,825 [INFO ] [dhbw.config.ConfigLoader.importGenConsConfig(24)] - Read config from file: Configuration/config_kafka.json
+2018-04-24 13:27:58,257 [INFO ] [dhbw.kafkaConn.Producer.init(56)] - //Creating Producer\
+2018-04-24 13:28:03,771 [INFO ] [dhbw.kafkaConn.Producer.init(58)] - //Created Producer\
+2018-04-24 13:28:03,775 [INFO ] [dhbw.config.ConfigLoader.importGenConsConfig(29)] - done importing config
+2018-04-24 13:28:03,821 [WARN ] [dhbw.twitterConn.TwitterClient.build(40)] - followings empty
+2018-04-24 13:28:06,135 [INFO ] [dhbw.twitterConn.TwitterStreamConn.run(58)] - kafkaProducer is not empty. Starting sending message to topic now!
+2018-04-24 13:28:06,141 [INFO ] [dhbw.kafkaConn.Producer.putMessage(29)] - Producer Object Method putMessage is now executed
