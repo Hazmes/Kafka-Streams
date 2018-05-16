@@ -32,6 +32,7 @@ public class TwitterStreamConn extends Thread {
 		kafkaProducer = config.getProducer();
 		List<String> bigPayloadFields = Arrays.asList("retweeted_status", "extended_entities", "quoted_status");
 		msgsInfoStepSize = 100;
+		
 		while (!hosebirdClient.isDone()) {
 			String msg = null;
 			try {
@@ -44,7 +45,7 @@ public class TwitterStreamConn extends Thread {
 			try {
 
 				object = (ObjectNode) mapper.readTree(msg);
-				if (object.hasNonNull("created_at") || object.hasNonNull("id")) {
+				if (object.get("created_at").isNull() || object.get("id").isNull()) {
 					continue;
 				}
 
