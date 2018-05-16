@@ -26,9 +26,8 @@ public class Producer {
 	}
 	
 	public void putMessage(String key, String message) {
-		log.info("Producer Object Method putMessage is now executed");
 		producer.send(new ProducerRecord<String,String>(this.getTopic(),key,message));
-		log.info("Twitter Message Object "+ key + "send to Kafka");
+		log.debug("Twitter Message Object "+ key + "send to Kafka");
 	}
 	
 	public void setParameters(List<Parameter> params) {
