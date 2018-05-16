@@ -1,9 +1,8 @@
 package dhbw.twitterConn;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -11,7 +10,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.twitter.hbc.core.Client;
@@ -24,7 +23,7 @@ public class TwitterStreamConn extends Thread {
 	private Client hosebirdClient;
 	private Producer kafkaProducer;
 	static BlockingQueue<String> msgQueue = new LinkedBlockingQueue<String>(100000);
-	private int totalMsgCount = 0;;
+	private int totalMsgCount = 0;
 	private int msgsInfoStepSize;
 
 	private void run(Config config) {
