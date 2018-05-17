@@ -53,7 +53,7 @@ public class TwitterStreamConn extends Thread {
 				e.printStackTrace();
 			}
 			if(object != null) {
-				if (object.get("created_at").isNull() || object.get("id").isNull()) {
+				if (object.get("created_at") == null || object.get("id") == null) {
 					continue;
 				}
 				
