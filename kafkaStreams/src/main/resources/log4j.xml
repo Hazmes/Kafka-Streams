@@ -22,7 +22,7 @@
 	</appender>
 
 	<root>
-		<level value=debug />
+		<level value="debug" />
 		<appender-ref ref="console" /> 
 		<appender-ref ref="logFile"/>
 	</root>
