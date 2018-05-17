@@ -1,7 +1,6 @@
 package dhbw.twitterConn;
 
 import java.io.IOException;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -32,7 +31,7 @@ public class TwitterStreamConn extends Thread {
 		kafkaProducer = config.getProducer();
 		List<String> bigPayloadFields = Arrays.asList("retweeted_status", "extended_entities", "quoted_status");
 		msgsInfoStepSize = 100;
-		
+
 		while (!hosebirdClient.isDone()) {
 			String msg = null;
 			try {
@@ -45,20 +44,6 @@ public class TwitterStreamConn extends Thread {
 			try {
 
 				object = (ObjectNode) mapper.readTree(msg);
-				if (object.get("created_at").isNull() || object.get("id").isNull()) {
-					continue;
-				}
-
-				log.debug("Original Tweet " + object.toString());
-				
-				object.remove(bigPayloadFields);
-				
-				log.debug("Cutted Tweet: " + object.toString());
-
-				// Iterator<String> jsonobjects = object.fieldNames();
-				// while(jsonobjects.hasNext()) {
-				// log.info(jsonobjects.next().toString());
-				// }
 
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block
@@ -67,10 +52,26 @@ public class TwitterStreamConn extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			if (kafkaProducer != null) {
-				kafkaProducer.putMessage(object.get("id").toString(), object.toString());
-				totalMsgCount++;
+			if(object != null) {
+				if (object.get("created_at").isNull() || object.get("id").isNull()) {
+					continue;
+				}
+				
+				log.debug("Original Tweet " + object.toString());
+				
+				object.remove(bigPayloadFields);
+				
+				log.debug("Cutted Tweet: " + object.toString());
+				
+				// Iterator<String> jsonobjects = object.fieldNames();
+				// while(jsonobjects.hasNext()) {
+				// log.info(jsonobjects.next().toString());
+				// }
+				
+				if (kafkaProducer != null) {
+					kafkaProducer.putMessage(object.get("id").toString(), object.toString());
+					totalMsgCount++;
+				}
 			}
 			if (totalMsgCount % msgsInfoStepSize == 0) {
 				log.info("Send another " + msgsInfoStepSize + " with a total of " + totalMsgCount + " Messages send.");
