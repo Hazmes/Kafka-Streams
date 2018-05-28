@@ -29,12 +29,12 @@ public class TwitterClient {
 	private String token;
 	private String tokenSecret;
 	private String streamHost;
-
-	public BasicClient build(BlockingQueue<String> msgQueue) {
-		StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
-		// a phrase will match if all of the terms in the phrase are present in the Tweet
+// a phrase will match if all of the terms in the phrase are present in the Tweet
 		// Terms or Followings have to be set. If nothing is set, the connection gets
 		// rejected (406)
+	
+	public BasicClient build(BlockingQueue<String> msgQueue) {
+		StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
 		if (followings.isEmpty()) {
 			hosebirdEndpoint.trackTerms(terms);
 			log.warn("followings empty");
@@ -45,15 +45,12 @@ public class TwitterClient {
 			hosebirdEndpoint.followings(followings);
 			hosebirdEndpoint.trackTerms(terms);
 		}
-
-		ClientBuilder builder = new ClientBuilder().name(this.getClientName()) // optional: mainly for the logs
+		ClientBuilder builder = new ClientBuilder().name(this.getClientName()) 
 				.hosts(new HttpHosts(this.getStreamHost()))
 				.authentication(new OAuth1(this.getConsumerKey(), this.getConsumerSecret(), this.getToken(),
-						this.getTokenSecret()))
+								this.getTokenSecret()))
 				.endpoint(hosebirdEndpoint).processor(new StringDelimitedProcessor(msgQueue));
-
 		return builder.build();
-
 	}
 
 	public void setParameters(List<Parameter> parameters) {

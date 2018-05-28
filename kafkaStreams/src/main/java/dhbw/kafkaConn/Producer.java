@@ -24,10 +24,10 @@ public class Producer {
 		props = new Properties();
 	}
 	
-	public void putMessage(String key, String message) {
-		producer.send(new ProducerRecord<String,String>(this.getTopic(),key,message));
-		log.debug("Twitter Message Object "+ key + "send to Kafka");
-	}
+public void putMessage(String key, String message) {
+	producer.send(new ProducerRecord<String,String>(this.getTopic(),key,message));
+	log.debug("Twitter Message Object "+ key + "send to Kafka");
+}
 	
 	public void setParameters(List<Parameter> params) {
 		for(Parameter param : params) {

@@ -52,26 +52,24 @@ public class TwitterStreamConn extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(object != null) {
-				if (object.get("created_at") == null || object.get("id") == null) {
-					continue;
-				}
-				
-				log.debug("Original Tweet " + object.toString());
-				
-				object.remove(bigPayloadFields);
-				
-				log.debug("Cutted Tweet: " + object.toString());
+			
+if(object != null) {
+	if (object.get("created_at") == null || object.get("id") == null) {
+			continue;
+		}
+		log.debug("Original Tweet " + object.toString());
+		object.remove(bigPayloadFields);
+		log.debug("Cutted Tweet: " + object.toString());
 				
 				// Iterator<String> jsonobjects = object.fieldNames();
 				// while(jsonobjects.hasNext()) {
 				// log.info(jsonobjects.next().toString());
 				// }
 				
-				if (kafkaProducer != null) {
-					kafkaProducer.putMessage(object.get("id").toString(), object.toString());
-					totalMsgCount++;
-				}
+if (kafkaProducer != null) {
+	kafkaProducer.putMessage(object.get("id").toString(), object.toString());
+	totalMsgCount++;
+}
 			}
 			if (totalMsgCount % msgsInfoStepSize == 0) {
 				log.info("Send another " + msgsInfoStepSize + " with a total of " + totalMsgCount + " Messages send.");

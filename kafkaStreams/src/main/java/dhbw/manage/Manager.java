@@ -11,21 +11,18 @@ public class Manager {
 	private TwitterStreamConn twitterStream;
 	
 	
-	public Manager(String[] args){
-		
-		Config config = ConfigLoader.importGenConsConfig((args[0]));
-		if(config == null) {
-			log.error("config could not be loaded");
-		}
-		twitterStream = new TwitterStreamConn();
-		twitterStream.start(config);
-		
+public Manager(String[] args){
+	Config config = ConfigLoader.importGenConsConfig((args[0]));
+	if(config == null) {
+		log.error("config could not be loaded");
 	}
-	
-	public static void main(String[] args) {
-		
-		new Manager(args);
-		
-	}
+	twitterStream = new TwitterStreamConn();
+	twitterStream.start(config);	
+}
+
+public static void main(String[] args) {
+	new Manager(args);	
+}
+
 
 }
