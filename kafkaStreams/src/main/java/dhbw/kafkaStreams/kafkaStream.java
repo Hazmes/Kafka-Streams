@@ -28,7 +28,7 @@ public class kafkaStream {
  
         final StreamsBuilder builder = new StreamsBuilder();
  
-        KStream<String, String> source = builder.stream("streams-plaintext-input");
+        KStream<String, String> source = builder.stream("twitter_dh");
         source.flatMapValues(value -> Arrays.asList(value.toLowerCase(Locale.getDefault()).split("\"\\W*\":")))
               .groupBy((key, value) -> value)
               .count(Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as("counts-store"))
