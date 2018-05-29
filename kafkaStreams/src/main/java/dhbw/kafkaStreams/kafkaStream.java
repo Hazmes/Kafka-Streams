@@ -29,7 +29,7 @@ public class kafkaStream {
         final StreamsBuilder builder = new StreamsBuilder();
  
         KStream<String, String> source = builder.stream("twitter_dh");
-        source.flatMapValues(value -> Arrays.asList(value.toLowerCase(Locale.getDefault()).split("\"\\W*\":")))
+        	source.flatMapValues(value -> Arrays.asList(value.toLowerCase(Locale.getDefault()).split("a|e|i|o|u")))
               .groupBy((key, value) -> value)
               .count(Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as("counts-store"))
               .toStream()
@@ -39,6 +39,8 @@ public class kafkaStream {
         final KafkaStreams streams = new KafkaStreams(topology, props);
         final CountDownLatch latch = new CountDownLatch(1);
 
+        System.out.println(topology.describe());
+        
         Runtime.getRuntime().addShutdownHook(new Thread("streams-shutdown-hook") {
             @Override
             public void run() {
